@@ -1,0 +1,327 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 5: Luxury Dark Premium (Hitam/Charcoal + Warm Champagne Gold)",
+  "emotional_tone": "Refined, prestige optical boutique, intimate studio mirror, tactile precision",
+  "fonts": {
+    "heading": "Playfair Display Variable",
+    "body": "Plus Jakarta Sans Variable",
+    "mono": "JetBrains Mono Variable",
+    "css_import": "@import \"@fontsource-variable/playfair-display\";\n@import \"@fontsource-variable/plus-jakarta-sans\";\n@import \"@fontsource-variable/jetbrains-mono\";",
+    "tailwind_font_tokens": {
+      "--font-heading": "'Playfair Display Variable', Georgia, serif",
+      "--font-sans": "'Plus Jakarta Sans Variable', system-ui, sans-serif",
+      "--font-mono": "'JetBrains Mono Variable', monospace"
+    }
+  },
+  "typography": {
+    "scale_px": {
+      "display": 56,
+      "h1": 42,
+      "h2": 32,
+      "h3": 22,
+      "body": 16,
+      "caption": 14
+    },
+    "letter_spacing": {
+      "display": "tracking-tight",
+      "heading": "tracking-tight",
+      "overline": "tracking-[0.2em]",
+      "body": "tracking-normal"
+    }
+  },
+  "colors": {
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#0D0F12",
+        "on_bg": "#F4F4F6",
+        "on_bg_muted": "#A2A7B5",
+        "roles": {
+          "brand_gold": "#D4AF37",
+          "brand_gold_hover": "#E5C158",
+          "border_subtle": "#232730",
+          "link": "#E5C158",
+          "error": "#FF6B6B",
+          "success": "#4ADE80"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#161920",
+        "on_bg": "#F4F4F6",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "border": "#2B303C",
+          "gold_glow": "rgba(212,175,55,0.15)",
+          "active_border": "#D4AF37"
+        }
+      },
+      {
+        "name": "camera_overlay_scrim",
+        "kind": "glass",
+        "contrast_against": "#101216",
+        "guarantee": "backdrop-blur-xl bg-black/75 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#D1D5DB",
+        "roles": {
+          "gold_accent": "#E5C158",
+          "danger_badge": "#EF4444",
+          "live_indicator": "#22C55E"
+        }
+      },
+      {
+        "name": "bottom_sheet_surface",
+        "kind": "solid",
+        "bg": "#12151B",
+        "on_bg": "#F9FAFB",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "card_bg": "#1A1E27",
+          "card_bg_active": "#222734",
+          "gold_text": "#D4AF37",
+          "border": "#2A2F3D"
+        }
+      },
+      {
+        "name": "hud_debug_surface",
+        "kind": "solid",
+        "bg": "#08090C",
+        "on_bg": "#00FF66",
+        "on_bg_muted": "#86EFAC",
+        "roles": {
+          "border": "#1B3828",
+          "metric_label": "#E2E8F0"
+        }
+      },
+      {
+        "name": "photo_modal_surface",
+        "kind": "solid",
+        "bg": "#14171E",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "whatsapp_green": "#25D366",
+          "whatsapp_text": "#0B1C10",
+          "gold_cta": "#D4AF37",
+          "gold_cta_text": "#0F0F10"
+        }
+      }
+    ],
+    "accent": "#D4AF37",
+    "on_accent": "#0D0F12"
+  },
+  "entry_surfaces": {
+    "/": "editorial split luxury hero — brand headline & CTA left with optical features ribbon, interactive frame preview mirror card right"
+  },
+  "eyewear_catalog_specs": [
+    {
+      "id": "classic-black",
+      "name": "Classic Black",
+      "category": "Acetate Wayfarer",
+      "price_idr": 350000,
+      "price_formatted": "Rp 350.000",
+      "frame_color": "#111113",
+      "accent_color": "#2A2A2E",
+      "description": "Desain timeless kotak tebal hitam pekat, cocok untuk bentuk wajah oval dan bulat.",
+      "bridge_width_mm": 18,
+      "lens_width_mm": 52,
+      "style_tags": ["Bestseller", "Formal & Casual", "Unisex"]
+    },
+    {
+      "id": "classic-brown",
+      "name": "Classic Brown",
+      "category": "Tortoise / Havana",
+      "price_idr": 375000,
+      "price_formatted": "Rp 375.000",
+      "frame_color": "#4A2E18",
+      "accent_color": "#8C5828",
+      "description": "Nuansa hangat amber-havana dengan sentuhan earth tone elegan.",
+      "bridge_width_mm": 19,
+      "lens_width_mm": 51,
+      "style_tags": ["Vintage Chic", "Warm Tone", "Unisex"]
+    },
+    {
+      "id": "round-black",
+      "name": "Round Black",
+      "category": "Minimalist Round",
+      "price_idr": 390000,
+      "price_formatted": "Rp 390.000",
+      "frame_color": "#1A1A1D",
+      "accent_color": "#404044",
+      "description": "Bingkai bundar retro artistik dengan rim tipis bernuansa intelektual modern.",
+      "bridge_width_mm": 21,
+      "lens_width_mm": 48,
+      "style_tags": ["Retro Aesthetic", "Lightweight", "Artisan"]
+    },
+    {
+      "id": "round-gold",
+      "name": "Round Gold",
+      "category": "Titanium Wireframe",
+      "price_idr": 450000,
+      "price_formatted": "Rp 450.000",
+      "frame_color": "#D4AF37",
+      "accent_color": "#F3E5AB",
+      "description": "Kawat titanium lapis emas champagne mewah, sangat ringan dan nyaman seharian.",
+      "bridge_width_mm": 20,
+      "lens_width_mm": 49,
+      "style_tags": ["Premium Gold", "Ultra Light", "Luxury"]
+    },
+    {
+      "id": "square-black",
+      "name": "Square Black",
+      "category": "Architectural Bold",
+      "price_idr": 360000,
+      "price_formatted": "Rp 360.000",
+      "frame_color": "#090A0C",
+      "accent_color": "#1E222B",
+      "description": "Sudut tegas maskulin dengan proporsi geometris kontemporer.",
+      "bridge_width_mm": 17,
+      "lens_width_mm": 54,
+      "style_tags": ["Bold Executive", "Sharp Angles"]
+    },
+    {
+      "id": "clear-frame",
+      "name": "Clear Frame",
+      "category": "Crystal Acetate",
+      "price_idr": 420000,
+      "price_formatted": "Rp 420.000",
+      "frame_color": "rgba(220, 230, 242, 0.45)",
+      "accent_color": "rgba(255, 255, 255, 0.8)",
+      "description": "Transparansi kristal modern yang menyatu natural dengan tone kulit apa pun.",
+      "bridge_width_mm": 19,
+      "lens_width_mm": 50,
+      "style_tags": ["Contemporary", "Crystal Clear", "Subtle"]
+    }
+  ],
+  "canvas_vto_engine_rules": {
+    "algorithm": "Real-time face detection & tracking with MediaPipe Face Landmarker / FaceMesh (fallback to ultra-fast high-accuracy 2D canvas face-anchor solver if CDN is offline)",
+    "key_landmarks": {
+      "left_eye_center": 468,
+      "right_eye_center": 473,
+      "left_eye_outer": 33,
+      "right_eye_outer": 263,
+      "nose_bridge": 168,
+      "nose_tip": 1,
+      "left_temple": 127,
+      "right_temple": 356
+    },
+    "math_scaling": "Distance = sqrt((x2-x1)^2 + (y2-y1)^2); Angle = atan2(y2-y1, x2-x1); Scale = (eye_distance / standard_ipd_px) * frame_scale_factor",
+    "rendering_fidelity": {
+      "draw_order": ["drop_shadow", "temple_arms", "rims", "lenses_tint_gradient", "bridge", "lens_glare_highlight", "hinge_gold_screws"],
+      "lens_reflection": "Subtle 25-degree diagonal white-to-transparent linear glare gradient for hyper-realistic glass look"
+    }
+  },
+  "camera_screen_layout": {
+    "viewport": "h-dvh w-full overflow-hidden relative bg-black select-none",
+    "top_hud_bar": {
+      "style": "absolute top-4 inset-x-4 z-30 flex items-center justify-between p-3 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 text-white",
+      "left_elements": "Brand mark 'OPTIK SINAR BARU' + live blinking status dot",
+      "center_elements": "Face status pill ('Wajah Terdeteksi' in Emerald or 'Posisikan Wajah di Tengah' in Amber)",
+      "right_elements": "Debug HUD Toggle, Sound/Flash toggle, Camera Flip, Mirror Toggle, Close/Back Button"
+    },
+    "center_guide_reticle": "Subtle gold-cornered face framing brackets (hidden once stable lock is acquired)",
+    "floating_frame_quickbar": "Bottom-above-sheet quick preview card showing Active Frame Name + Rp formatted price + 'Ganti Frame' trigger button",
+    "bottom_controls_dock": {
+      "style": "absolute bottom-6 inset-x-4 z-30 flex items-center justify-between px-6 py-4 rounded-3xl bg-black/75 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)]",
+      "shutter_button": "Central massive circular gold rim button with inner white core, h-18 w-18 active:scale-95 transition-transform",
+      "catalog_sheet_trigger": "Left button [ Model Kacamata (6) ] with thumbnail icon",
+      "pause_toggle_button": "Right button pause/freeze live preview"
+    },
+    "bottom_sheet_catalog": {
+      "style": "Snap sheet or expandable modal with 6-card grid (1 col on mobile, 2 on tablet, 3 on desktop), gold active border, 'COBA FRAME INI' primary button"
+    },
+    "debug_hud": {
+      "style": "absolute top-20 left-4 z-40 p-3 rounded-xl bg-black/85 backdrop-blur-md border border-emerald-500/30 font-mono text-xs text-emerald-400 space-y-1 shadow-lg",
+      "metrics": ["FPS", "Landmarks Count", "Eye Distance (IPD px)", "Head Roll / Pitch / Yaw Angle", "Canvas Scale Factor", "Latency (ms)"]
+    },
+    "photo_review_modal": {
+      "style": "fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex flex-col items-center justify-between p-4 md:p-8",
+      "photo_container": "relative max-h-[65vh] w-auto aspect-[3/4] rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)]",
+      "action_bar": "w-full max-w-md grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4"
+    }
+  },
+  "motion": {
+    "transitions": {
+      "card_hover": "transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease",
+      "shutter_press": "transition: transform 0.1s ease-out, filter 0.15s ease-out",
+      "sheet_slide": "transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1)"
+    },
+    "shutter_flash": "Brief 150ms pure white overlay flash opacity animation on capture",
+    "reticle_pulse": "Subtle breathing opacity pulse (0.4 to 0.9) when looking for face"
+  },
+  "accessibility": {
+    "wcag_compliance": "AA (4.5:1 minimum contrast on all text surfaces; tested on worst-case camera glare with backdrop-blur and rgba(0,0,0,0.75) guarantees)",
+    "keyboard_nav": "Full arrow key support in frame catalog, spacebar triggers shutter capture, ESC closes sheet or review screen",
+    "reduced_motion": "Prefers-reduced-motion media query disables pulse animations and sheet bouncy springs",
+    "aria_labels": {
+      "shutter": "Ambil Foto Kacamata",
+      "switch_camera": "Ganti Kamera Depan atau Belakang",
+      "mirror": "Cerminkan Video Kamera",
+      "catalog": "Buka Katalog Model Kacamata",
+      "debug": "Toggle Metrik Debug"
+    }
+  },
+  "image_urls": {
+    "editorial_showcases": [
+      {
+        "url": "https://images.unsplash.com/photo-1518991669955-9c7e78ec80ca?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBleWVnbGFzc2VzJTIwbW9kZWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODc2MzI0Mjh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Model memakai kacamata titanium elegan berprofil studio luxury",
+        "usage": "Landing page hero showcase & virtual try-on demonstration banner"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1587987746776-302404b98970?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBleWVnbGFzc2VzJTIwbW9kZWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODc2MzI0Mjh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Model wanita mengenakan kacamata frame tebal hitam klasik dengan nuansa kontras moody",
+        "usage": "Testimonial feature & Classic Black frame highlight card"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1524255684952-d7185b509571?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBleWVnbGFzc2VzJTIwbW9kZWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODc2MzI0Mjh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Potret model dengan kacamata tortoise brown bernuansa earth tone premium",
+        "usage": "Catalog banner & Classic Brown highlight section"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1556306510-31ca015374b0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwxfHxvcHRpY2FsJTIwc3RvcmUlMjBnbGFzc2VzJTIwZnJhbWVzfGVufDB8fHx8MTc4NzYzMjQyOHww&ixlib=rb-4.1.0&q=85",
+        "description": "Kacamata optik premium dengan bayangan bersih",
+        "usage": "Product feature detail card & gallery thumbnail"
+      },
+      {
+        "url": "https://images.pexels.com/photos/5202053/pexels-photo-5202053.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Display butik optik dengan jajaran koleksi kacamata mewah",
+        "usage": "Landing page 'Kunjungi Optik Sinar Baru' gallery section"
+      }
+    ]
+  },
+  "component_structure": {
+    "pages": {
+      "Home": "/app/frontend/src/pages/Home.tsx",
+      "TryOn": "/app/frontend/src/pages/TryOn.tsx"
+    },
+    "components": {
+      "VirtualTryOnCanvas": "/app/frontend/src/components/vto/VirtualTryOnCanvas.tsx",
+      "CameraControls": "/app/frontend/src/components/vto/CameraControls.tsx",
+      "FrameCatalogSheet": "/app/frontend/src/components/vto/FrameCatalogSheet.tsx",
+      "FrameQuickBar": "/app/frontend/src/components/vto/FrameQuickBar.tsx",
+      "DebugMetricsHUD": "/app/frontend/src/components/vto/DebugMetricsHUD.tsx",
+      "PhotoReviewModal": "/app/frontend/src/components/vto/PhotoReviewModal.tsx",
+      "FaceStatusBanner": "/app/frontend/src/components/vto/FaceStatusBanner.tsx",
+      "PrivacyBadge": "/app/frontend/src/components/vto/PrivacyBadge.tsx",
+      "Navbar": "/app/frontend/src/components/layout/Navbar.tsx",
+      "Footer": "/app/frontend/src/components/layout/Footer.tsx"
+    }
+  },
+  "whatsapp_integration": {
+    "phone_number": "6281234567890",
+    "message_template": "Halo Optik Sinar Baru, saya tertarik mencoba kacamata model *{frame_name}* (Harga {frame_price}) setelah mencoba Virtual Try-On di website. Apakah stok masih tersedia untuk saya pesan/konsultasikan?"
+  },
+  "instructions_to_main_agent": [
+    "1. TEMA & GAYA: Terapkan dark-mode luxury dengan background charcoal (#0D0F12), panel (#161920), dan aksen gold (#D4AF37 / #E5C158). Gunakan font Playfair Display untuk display/heading dan Plus Jakarta Sans untuk teks UI.",
+    "2. CAMERA OVERLAY CRITICAL: Semua overlay kamera (HUD, tombol shutter, bottom sheet) WAJIB memiliki backdrop-blur dan background semi-transparan yang pekat (min bg-black/75) agar tetap terbaca jelas apapun objek di depan kamera.",
+    "3. REAL-TIME CANVAS VTO: Bangun canvas face tracker overlay yang solid dan responsif. Gunakan MediaPipe FaceMesh / Face Landmarker via @mediapipe/tasks-vision atau @tensorflow-models/face-landmarks-detection, dengan fallback native geometric face solver jika model CDN lambat dimuat. Kacamata harus diposisikan presisi (lebar mata, rotasi roll/pitch, bridge hidung) dengan efek kilau lensa.",
+    "4. 6 FRAME SPESIFIK: Sediakan 6 frame sesuai permintaan: Classic Black, Classic Brown, Round Black, Round Gold, Square Black, Clear Frame dengan nama, harga Rupiah (misal Rp 350.000 s/d Rp 450.000), dan tombol [ COBA FRAME INI ].",
+    "5. FITUR KAMERA LENGKAP: Switch kamera depan/belakang (facingMode: user/environment), tombol Mirror toggle, Pause video preview, dan tombol Shutter 'AMBIL FOTO' dengan efek flash.",
+    "6. MODAL HASIL FOTO: Setelah foto diambil, tampilkan layar 'Bagaimana menurutmu?' dengan 3 tombol: [ COBA FRAME LAIN ], [ SIMPAN FOTO ] (download file PNG), dan [ TANYAKAN KE TOKO ] (buka WhatsApp dengan pre-filled text berisi nama & harga frame terpilih).",
+    "7. DEBUG HUD & PRIVACY: Tampilkan toggle switch Debug Overlay yang menunjukkan metrik (FPS, landmarks, eye distance, rotation, scale), serta catatan privasi: 'Video kamera diproses langsung di perangkat Anda.'",
+    "8. TESTING DATA-TESTID: Tambahkan atribut data-testid pada seluruh tombol, input, switch, dan frame card untuk pengujian otomatis (misal: data-testid='cta-try-on-button', data-testid='shutter-button', data-testid='frame-card-classic-black', data-testid='switch-camera-button', data-testid='save-photo-button', data-testid='whatsapp-cta-button', data-testid='debug-toggle')."
+  ]
+}
