@@ -6,8 +6,11 @@ import type { GlassesProduct } from "@/data/products";
 import { PRODUCTS } from "@/data/products";
 import { STORE_CONFIG, TRACKING_CONFIG, buildWhatsAppUrl } from "@/config/store";
 import { useCamera } from "@/hooks/useCamera";
+import { useCalibration } from "@/hooks/useCalibration";
 import { useFaceLandmarker } from "@/hooks/useFaceLandmarker";
 import { useTryOnEngine } from "@/hooks/useTryOnEngine";
+import { applyCalibration } from "@/lib/vto/calibration";
+import CalibrationStudio from "@/components/vto/CalibrationStudio";
 import CameraControls from "@/components/vto/CameraControls";
 import DebugMetricsHUD from "@/components/vto/DebugMetricsHUD";
 import FaceShapeChip from "@/components/vto/FaceShapeChip";
@@ -35,15 +38,23 @@ export default function VirtualTryOn() {
   const [manualFaceShape, setManualFaceShape] = useState<FaceShapeId | null>(null);
 
   const camera = useCamera();
+  const calibration = useCalibration();
   // Load the landmarker immediately, in parallel with the camera permission
   // prompt, so tracking starts the moment the stream is live.
   const model = useFaceLandmarker(true);
+
+  // What the renderer actually draws: catalog values + Calibration Studio
+  // overrides + any session-only uploaded PNG.
+  const calibratedProduct = useMemo(
+    () => applyCalibration(selected, calibration.overrides, calibration.customImages[selected.id]),
+    [selected, calibration.overrides, calibration.customImages],
+  );
 
   const engine = useTryOnEngine({
     videoRef: camera.videoRef,
     canvasRef,
     landmarkerRef: model.landmarkerRef,
-    product: selected,
+    product: calibratedProduct,
     mirrored,
     debug,
     smoothingFactor,
@@ -237,6 +248,18 @@ export default function VirtualTryOn() {
 
       {/* Bottom stack */}
       <div className="absolute inset-x-3 bottom-4 z-30 flex flex-col gap-3 sm:inset-x-4 sm:bottom-6">
+        {debug && (
+          <CalibrationStudio
+            base={selected}
+            effective={calibratedProduct}
+            hasCustomImage={Boolean(calibration.customImages[selected.id])}
+            snippet={calibration.snippet}
+            onField={calibration.setField}
+            onResetFrame={calibration.resetFrame}
+            onUploadImage={calibration.setCustomImage}
+            onClearImage={calibration.clearCustomImage}
+          />
+        )}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <FaceShapeChip
             shape={effectiveFaceShape}
@@ -246,7 +269,9 @@ export default function VirtualTryOn() {
           />
           <PrivacyBadge />
         </div>
-        <FrameQuickBar product={selected} onChangeFrame={() => setSheetOpen(true)} onAsk={handleAsk} />
+        {!debug && (
+          <FrameQuickBar product={calibratedProduct} onChangeFrame={() => setSheetOpen(true)} onAsk={handleAsk} />
+        )}
         <CameraControls
           onShutter={handleShutter}
           onOpenCatalog={() => setSheetOpen(true)}

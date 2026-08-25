@@ -67,7 +67,7 @@ export function useTryOnEngine(options: EngineOptions) {
   const [metrics, setMetrics] = useState<DebugMetrics>(EMPTY_METRICS);
   const [detectedFaceShape, setDetectedFaceShape] = useState<FaceShapeId | null>(null);
 
-  // Preload every frame asset once so switching models is instant.
+  // Preload every catalog asset once so switching models is instant.
   useEffect(() => {
     const cache = imageCacheRef.current;
     for (const product of PRODUCTS) {
@@ -77,6 +77,16 @@ export function useTryOnEngine(options: EngineOptions) {
       cache.set(product.image, img);
     }
   }, []);
+
+  // Covers Calibration Studio uploads, whose object URL is not in the catalog.
+  useEffect(() => {
+    const cache = imageCacheRef.current;
+    const src = options.product.image;
+    if (cache.has(src)) return;
+    const img = new Image();
+    img.src = src;
+    cache.set(src, img);
+  }, [options.product.image]);
 
   const { enabled } = options;
 

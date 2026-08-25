@@ -35,7 +35,10 @@ photo, save it, and contact the store on WhatsApp about the frame they tried.
 | `src/pages/VirtualTryOn.tsx` | Camera screen, route `/coba` |
 | `src/lib/vto/faceShape.ts` | Face-shape metrics + rule classifier + `FaceShapeEstimator` (multi-frame averaging) |
 | `src/data/faceShapeRecommendations.ts` | Shape → recommended frame ids + advice copy, `isRecommendedFrame`, `sortByRecommendation` |
-| `src/components/vto/*` | CameraControls, FrameCatalogSheet, ProductCard, FrameQuickBar, FaceStatusBanner, FaceShapeChip, FaceShapePicker, DebugMetricsHUD, PhotoReviewModal, PrivacyBadge |
+| `src/lib/vto/calibration.ts` | Calibration override types, localStorage load/save, `applyCalibration`, `buildProductsSnippet` |
+| `src/hooks/useCalibration.ts` | Calibration Studio state: slider overrides (persisted) + session-only PNG object URLs |
+| `src/components/vto/*` | CameraControls, FrameCatalogSheet, ProductCard, FrameQuickBar, FaceStatusBanner, FaceShapeChip, FaceShapePicker, DebugMetricsHUD, CalibrationStudio, PhotoReviewModal, PrivacyBadge |
+| `tools/build_frames.py` | Asset pipeline: chroma-keys green-screen product renders to alpha PNGs and auto-derives each frame's `scaleMultiplier`/`offsetX`/`offsetY` from the lens-hole centroids |
 
 ## Positioning model
 - Anchor x = 0.35·eyeCenter + 0.65·noseBridge; anchor y = 0.78·eyeCenter + 0.22·noseBridge.
@@ -43,9 +46,15 @@ photo, save it, and contact the store on WhatsApp about the frame they tried.
 - Roll from `atan2` of the eye line (mirror-corrected).
 - Yaw squeezes the frame horizontally (`cos yaw`, floor 0.42) and slides it; pitch shifts it vertically.
 - Smoothing: `lerp` / `lerpAngle` with a configurable factor (default 0.45, slider in debug HUD).
-- Frame assets are transparent SVGs in `public/glasses/` whose lens centres sit
-  240px apart in a 600px-wide canvas → nominal `scaleMultiplier` ≈ 2.5.
-  Replace with real product PNGs using the same geometry; no logic changes.
+- Frame assets are photoreal transparent **PNGs** in `public/glasses/`, produced by
+  `tools/build_frames.py`: product renders on a pure-green screen are chroma-keyed
+  (ratio test + de-spill), cropped, resized to a 600px-wide canvas, and their two
+  lens openings are found by flood fill. The calibration is then derived exactly:
+  `scaleMultiplier = 600 / lensCentreDistance`,
+  `offsetX = (300 - lensCentreX)/600`, `offsetY = (height/2 - lensCentreY)/600`.
+  To swap in different photos, add the URL to `SOURCES` in that script and re-run
+  `cd /app && python tools/build_frames.py`. Translucent frames need an opaque rim
+  in the source render, or the green shows through and the rim gets keyed away.
 
 ## Key flows
 1. `/` → **COBA SEKARANG** → `/coba`.
@@ -75,8 +84,18 @@ None in Mongo. The catalog is static TypeScript: SKUs OSB-001..OSB-006
 (Classic Black 350000, Classic Brown 350000, Round Black 375000,
 Round Gold 400000, Square Black 400000, Clear Frame 425000).
 
+8. **Calibration Studio** (debug mode only, docked at the bottom so the face
+   stays visible): upload a PNG for the selected frame (object URL — stays in the
+   browser, never uploaded), adjust `scaleMultiplier` / `offsetX` / `offsetY` /
+   `rotationOffset` / `opacity` live against your own face, collapse the panel,
+   then **Copy products.ts** / **Unduh** to export a ready-to-paste catalog block.
+   Overrides persist in `localStorage` under `osb.calibration.v1`; the circular
+   arrow resets a frame to its catalog values.
+
 ## Known deviations
 - WhatsApp number is intentionally the placeholder `GANTI_DENGAN_NOMOR_TOKO`
   (user's choice), so `wa.me` links carry only the prefilled text.
-- Frame assets are generated transparent SVGs, not real product photography.
+- Frame assets are AI-generated product photography, not your real stock photos —
+  replace the URLs in `tools/build_frames.py` (or upload per-frame PNGs in the
+  Calibration Studio) to use genuine product shots.
 - Head yaw/pitch use a 2D perspective approximation, not full 3D rendering.

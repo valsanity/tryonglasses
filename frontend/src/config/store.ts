@@ -18,7 +18,6 @@ export const TRACKING_CONFIG = {
   /** Frames without a face before the overlay is hidden. */
   lostFaceGraceFrames: 8,
   modelAssetPath: "/models/face_landmarker.task",
-  wasmBasePath: "/mediapipe/wasm",
 } as const;
 
 export function buildWhatsAppUrl(frameName: string): string {

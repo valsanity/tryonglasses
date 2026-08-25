@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
+import { FaceLandmarker } from "@mediapipe/tasks-vision";
+// The WASM runtime is resolved straight out of node_modules by Vite, so no
+// third-party build artifact is vendored into the repo and there is no CDN.
+import wasmLoaderPath from "@mediapipe/tasks-vision/vision_wasm_internal.js?url";
+import wasmBinaryPath from "@mediapipe/tasks-vision/vision_wasm_internal.wasm?url";
 import { TRACKING_CONFIG } from "@/config/store";
 
 export type ModelStatus = "loading" | "ready" | "error";
@@ -28,7 +32,7 @@ export function useFaceLandmarker(enabled: boolean): UseFaceLandmarkerResult {
     (async () => {
       try {
         setStatus("loading");
-        const fileset = await FilesetResolver.forVisionTasks(TRACKING_CONFIG.wasmBasePath);
+        const fileset = { wasmLoaderPath, wasmBinaryPath };
         created = await FaceLandmarker.createFromOptions(fileset, {
           baseOptions: {
             modelAssetPath: TRACKING_CONFIG.modelAssetPath,
