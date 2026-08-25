@@ -3,15 +3,15 @@
 import { queryClient } from "./queryClient";
 import { apiPost } from "./api";
 
-// Call after every successful login/signup.
+// Call after every successful login.
 export function beginSession(): void {
   queryClient.clear();
 }
 
-// Call from every sign-out control; the hard redirect resets all in-memory state.
-export async function endSession(redirectTo: string = "/login"): Promise<void> {
+// Call from every sign-out control; the admin logout route clears the cookie.
+export async function endSession(redirectTo: string = "/admin"): Promise<void> {
   try {
-    await apiPost("/auth/logout");
+    await apiPost("/admin/logout");
   } finally {
     queryClient.clear();
     window.location.assign(redirectTo);

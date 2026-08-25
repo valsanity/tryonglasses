@@ -1,18 +1,18 @@
 import { ScanFace, Sparkles } from "lucide-react";
 import type { FaceShapeId } from "@/lib/vto/faceShape";
 import { FACE_SHAPE_LABELS } from "@/lib/vto/faceShape";
-import { FACE_SHAPE_ADVICE } from "@/data/faceShapeRecommendations";
 
 interface Props {
   shape: FaceShapeId | null;
   /** True while a face is tracked but the classifier has not settled yet. */
   analyzing: boolean;
   isManual: boolean;
+  matchCount: number;
   onOpenCatalog: () => void;
 }
 
 /** On-camera summary of the detected face shape and how many frames suit it. */
-export default function FaceShapeChip({ shape, analyzing, isManual, onOpenCatalog }: Props) {
+export default function FaceShapeChip({ shape, analyzing, isManual, matchCount, onOpenCatalog }: Props) {
   if (!shape) {
     if (!analyzing) return null;
     return (
@@ -26,8 +26,6 @@ export default function FaceShapeChip({ shape, analyzing, isManual, onOpenCatalo
       </div>
     );
   }
-
-  const matchCount = FACE_SHAPE_ADVICE[shape].recommendedFrameIds.length;
 
   return (
     <button

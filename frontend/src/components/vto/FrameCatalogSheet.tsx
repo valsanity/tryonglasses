@@ -98,7 +98,7 @@ export default function FrameCatalogSheet({
               key={product.id}
               product={product}
               selected={product.id === selected.id}
-              recommended={isRecommendedFrame(faceShape, product.id)}
+              recommended={isRecommendedFrame(faceShape, product.sku)}
               onSelect={onSelect}
             />
           ))}

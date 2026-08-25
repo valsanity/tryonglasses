@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Camera, Glasses, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
-import { PRODUCTS } from "@/data/products";
+import { useFrames } from "@/hooks/useFrames";
 import { STORE_CONFIG, buildWhatsAppUrl, formatRupiah } from "@/config/store";
 
 const FEATURES = [
@@ -10,6 +10,7 @@ const FEATURES = [
 ];
 
 export default function Home() {
+  const { products } = useFrames();
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
@@ -95,7 +96,7 @@ export default function Home() {
             <div>
               <h2 className="font-heading text-2xl sm:text-3xl">Model Kacamata</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                {PRODUCTS.length} frame siap dicoba langsung lewat kamera.
+                {products.length} frame siap dicoba langsung lewat kamera.
               </p>
             </div>
             <Link
@@ -108,7 +109,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {PRODUCTS.map((product) => (
+            {products.map((product) => (
               <article
                 key={product.id}
                 data-testid={`home-product-${product.id}`}

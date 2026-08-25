@@ -7,17 +7,34 @@ frame is composited onto their face in real time. They can switch frames, take a
 photo, save it, and contact the store on WhatsApp about the frame they tried.
 
 ## Stack / architecture
-- Frontend only for app logic (no backend calls). FastAPI template backend is
-  untouched and still serves `/api/` and `/api/status`.
+- **Catalog lives in MongoDB** (`frames` collection) and is managed from `/admin`.
+  Frame PNGs are stored as base64 on the product document and served by
+  `GET /api/frames/{id}/image` — no disk volume, survives restarts/redeploys.
+  The bundled `src/data/products.ts` is now only the offline fallback used when
+  the backend is unreachable (paused env / static preview build).
 - Face tracking: **real MediaPipe Face Landmarker** (`@mediapipe/tasks-vision`
   v1.0.1), `runningMode: "VIDEO"`, `numFaces: 2`,
   `outputFacialTransformationMatrixes: true`.
-- **Self-hosted model + runtime** (no CDN): WASM at
-  `frontend/public/mediapipe/wasm/`, model at
+- **Self-hosted model + runtime** (no CDN): the WASM runtime is imported from
+  `node_modules` via Vite `?url`; the model is at
   `frontend/public/models/face_landmarker.task`.
 - Rendering: `<video>` (object-fit: cover) with a `<canvas>` overlay on top;
   the render loop is pure `requestAnimationFrame` and mutates refs. React state
   is pushed at most ~4x/second (status pill + debug HUD).
+
+## API
+| Method | Route | Auth | Purpose |
+|---|---|---|---|
+| GET | `/api/frames` | public | active catalog for the storefront |
+| GET | `/api/frames/{id}/image` | public | transparent PNG |
+| POST | `/api/admin/login` | PIN body | sets httpOnly `osb_admin` cookie |
+| POST | `/api/admin/logout` | — | clears cookie |
+| GET | `/api/admin/me` | — | `{authenticated}` |
+| GET | `/api/admin/frames` | cookie | all frames incl. hidden |
+| POST | `/api/admin/frames` | cookie | create (409 on duplicate SKU) |
+| PUT | `/api/admin/frames/{id}` | cookie | update any field |
+| DELETE | `/api/admin/frames/{id}` | cookie | delete |
+| POST | `/api/admin/frames/{id}/image` | cookie | upload photo → background removal + auto calibration |
 
 ## Key files
 | Path | Role |
@@ -77,12 +94,16 @@ photo, save it, and contact the store on WhatsApp about the frame they tried.
    row in the sheet (`Otomatis (...)` restores auto-detection).
 
 ## Auth
-None. No login, no accounts, no credentials anywhere in the app.
+Single shared shop PIN (`ADMIN_PIN` in `backend/.env`) gating `/admin` and every
+`/api/admin/*` route. Session = httpOnly JWT cookie `osb_admin` signed with
+`ADMIN_SESSION_SECRET`, 12h TTL. Credentials in `memory/test_credentials.md`.
+Customer pages (`/`, `/coba`) need no login.
 
 ## Seed data
-None in Mongo. The catalog is static TypeScript: SKUs OSB-001..OSB-006
-(Classic Black 350000, Classic Brown 350000, Round Black 375000,
-Round Gold 400000, Square Black 400000, Clear Frame 425000).
+`cd /app/backend && python seed.py` — idempotent by SKU, loads the 6 bundled
+PNGs into Mongo: OSB-001 Classic Black 350000, OSB-002 Classic Brown 350000,
+OSB-003 Round Black 375000, OSB-004 Round Gold 400000, OSB-005 Square Black
+400000, OSB-006 Clear Frame 425000.
 
 8. **Calibration Studio** (debug mode only, docked at the bottom so the face
    stays visible): upload a PNG for the selected frame (object URL — stays in the
@@ -91,6 +112,17 @@ Round Gold 400000, Square Black 400000, Clear Frame 425000).
    then **Copy products.ts** / **Unduh** to export a ready-to-paste catalog block.
    Overrides persist in `localStorage` under `osb.calibration.v1`; the circular
    arrow resets a frame to its catalog values.
+
+9. **Admin dashboard** (`/admin`, PIN-gated): stats (total / visible / missing
+   photo / stock), add frame (SKU + name + price), then per frame edit name, SKU,
+   price, stock, colour, size, the 5 calibration sliders, show/hide from the
+   storefront, delete, and **Upload Foto**. Upload runs
+   `backend/lib/imaging.py`: it estimates the backdrop colour from the border
+   band, keys it to alpha, restores small enclosed specks (highlights), crops,
+   resizes to a 600px canvas, finds the two lens openings by flood fill, and
+   writes `scale_multiplier` / `offset_x` / `offset_y` automatically. Already
+   transparent PNGs keep their own alpha. Fewer than 2 lens holes → default
+   calibration + a warning telling the admin to use the sliders.
 
 ## Known deviations
 - WhatsApp number is intentionally the placeholder `GANTI_DENGAN_NOMOR_TOKO`

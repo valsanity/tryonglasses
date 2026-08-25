@@ -58,6 +58,13 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
+# Feature routers — mounted on api_router so everything stays under /api
+from routers.frames import router as frames_router  # noqa: E402
+from routers.admin import router as admin_router  # noqa: E402
+
+api_router.include_router(frames_router)
+api_router.include_router(admin_router)
+
 # Include the router in the main app
 app.include_router(api_router)
 

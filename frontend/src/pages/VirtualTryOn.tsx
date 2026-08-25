@@ -3,8 +3,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Bug, FlipHorizontal2, RefreshCw, SwitchCamera } from "lucide-react";
 import { toast } from "sonner";
 import type { GlassesProduct } from "@/data/products";
-import { PRODUCTS } from "@/data/products";
 import { STORE_CONFIG, TRACKING_CONFIG, buildWhatsAppUrl } from "@/config/store";
+import { countMatches } from "@/data/faceShapeRecommendations";
+import { useFrames } from "@/hooks/useFrames";
 import { useCamera } from "@/hooks/useCamera";
 import { useCalibration } from "@/hooks/useCalibration";
 import { useFaceLandmarker } from "@/hooks/useFaceLandmarker";
@@ -29,7 +30,7 @@ export default function VirtualTryOn() {
 
   const [debug, setDebug] = useState(searchParams.get("debug") === "1");
   const [smoothingFactor, setSmoothingFactor] = useState<number>(TRACKING_CONFIG.smoothingFactor);
-  const [selected, setSelected] = useState<GlassesProduct>(PRODUCTS[0]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [photo, setPhoto] = useState<string | null>(null);
   const [mirrored, setMirrored] = useState(true);
@@ -39,6 +40,12 @@ export default function VirtualTryOn() {
 
   const camera = useCamera();
   const calibration = useCalibration();
+  // Catalog comes from the database, with the bundled frames as fallback.
+  const { products } = useFrames();
+  const selected = useMemo(
+    () => products.find((product) => product.id === selectedId) ?? products[0],
+    [products, selectedId],
+  );
   // Load the landmarker immediately, in parallel with the camera permission
   // prompt, so tracking starts the moment the stream is live.
   const model = useFaceLandmarker(true);
@@ -118,10 +125,17 @@ export default function VirtualTryOn() {
   }, [selected.name]);
 
   const handleSelect = useCallback((product: GlassesProduct) => {
-    setSelected(product);
+    setSelectedId(product.id);
   }, []);
 
   const effectiveFaceShape = manualFaceShape ?? engine.detectedFaceShape;
+  const matchCount = useMemo(
+    () =>
+      effectiveFaceShape
+        ? countMatches(effectiveFaceShape, products.map((product) => product.sku))
+        : 0,
+    [effectiveFaceShape, products],
+  );
 
   const showRetry =
     camera.status === "denied" ||
@@ -265,6 +279,7 @@ export default function VirtualTryOn() {
             shape={effectiveFaceShape}
             analyzing={engine.faceStatus === "tracked"}
             isManual={manualFaceShape !== null}
+            matchCount={matchCount}
             onOpenCatalog={() => setSheetOpen(true)}
           />
           <PrivacyBadge />
@@ -277,14 +292,14 @@ export default function VirtualTryOn() {
           onOpenCatalog={() => setSheetOpen(true)}
           onTogglePause={camera.togglePause}
           isPaused={camera.isPaused}
-          catalogCount={PRODUCTS.length}
+          catalogCount={products.length}
           disabled={camera.status !== "ready"}
         />
       </div>
 
       <FrameCatalogSheet
         open={sheetOpen}
-        products={PRODUCTS}
+        products={products}
         selected={selected}
         faceShape={effectiveFaceShape}
         detectedFaceShape={engine.detectedFaceShape}
