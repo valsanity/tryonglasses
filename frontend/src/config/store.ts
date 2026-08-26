@@ -3,7 +3,7 @@
  * Change the WhatsApp number here and nowhere else.
  */
 export const STORE_CONFIG = {
-  name: "OPTIK SINAR BARU",
+  name: "OPTIK LASER",
   tagline: "Temukan kacamata yang cocok untukmu secara virtual.",
   /** Replace with the real store number in international format, e.g. "6281234567890" */
   whatsappNumber: "GANTI_DENGAN_NOMOR_TOKO",
