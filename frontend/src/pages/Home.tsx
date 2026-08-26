@@ -40,7 +40,7 @@ export default function Home() {
             <h1 className="mt-4 font-heading text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               OPTIK
               <br />
-              <span className="text-primary">SINAR BARU</span>
+              <span className="text-primary">LASER</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
               {STORE_CONFIG.tagline}
