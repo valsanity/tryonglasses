@@ -16,7 +16,7 @@ export default function Home() {
       <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
         <div>
           <p className="overline text-[11px] font-semibold text-primary">Optik</p>
-          <p className="font-heading text-lg leading-tight tracking-tight sm:text-xl">SINAR BARU</p>
+          <p className="font-heading text-lg leading-tight tracking-tight sm:text-xl">LASER</p>
         </div>
         <a
           href={buildWhatsAppUrl("Konsultasi Frame")}
