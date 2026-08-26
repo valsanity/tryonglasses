@@ -13,10 +13,19 @@ export default function Home() {
   const { products } = useFrames();
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
+      {/* <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
         <div>
           <p className="overline text-[11px] font-semibold text-primary">Optik</p>
           <p className="font-heading text-lg leading-tight tracking-tight sm:text-xl">LASER</p>
+        </div> */}
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
+        <div>
+          {/* Teks lama dihapus, diganti dengan tag img di bawah ini */}
+          <img 
+            src="/logo.png" 
+            alt="Logo Optik" 
+            className="h-10 w-auto object-contain" 
+          />
         </div>
         <a
           href={buildWhatsAppUrl("Konsultasi Frame")}
