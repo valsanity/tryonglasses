@@ -46,11 +46,19 @@ export default function Home() {
               <Sparkles className="size-3.5" />
               Virtual Try-On
             </p>
-            <h1 className="mt-4 font-heading text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+            {/* <h1 className="mt-4 font-heading text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               OPTIK
               <br />
               <span className="text-primary">LASER</span>
-            </h1>
+            </h1> */}
+            {/* Ganti seluruh blok h1 lama dengan kode img di bawah ini */}
+            <div className="mt-4">
+              <img 
+                src="LOGO LASER FIX.png" 
+                alt="Logo Utama Optik" 
+                className="h-20 sm:h-28 lg:h-36 w-auto object-contain" 
+              />
+            </div>
             <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
               {STORE_CONFIG.tagline}
             </p>
