@@ -22,7 +22,7 @@ export default function Home() {
         <div>
           {/* Teks lama dihapus, diganti dengan tag img di bawah ini */}
           <img 
-            src="/logo.png" 
+            src="LOGO LASER FIX.png" 
             alt="Logo Optik" 
             className="h-10 w-auto object-contain" 
           />
