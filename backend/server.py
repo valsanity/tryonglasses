@@ -10,6 +10,11 @@ from typing import List
 import uuid
 from datetime import datetime
 
+# Near top of backend/server.py
+from routers.products import router as products_router
+
+# Locate your existing api_router or app.include_router section and add:
+api_router.include_router(products_router)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
